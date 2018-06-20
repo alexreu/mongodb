@@ -12,9 +12,7 @@
 <body>
     <div class="container text-center pt-3">
         <h1 class="text-uppercase">Liste des Clients</h1>
-        <div class="row" id="result">
-
-        </div>
+        <div class="row" id="result"></div>
     </div>
     <div class="container text-center mt-5">
         <h1 class="text-uppercase">Ajout de clients</h1>
@@ -42,8 +40,9 @@
                     <input type="text" class="form-control" name="name" id="name-update" value="">
                     <label for="gender">Genre M , F ou Non Binaire</label>
                     <input type="text" class="form-control" name="gender" id="gender-update" value="">
+                    <input type="hidden" id="user_id" value="">
                 </div>
-                <button class="btn btn-success" id="Update">Update</button>
+                <a class="btn btn-success" id="Update">Update</a>
                 <a class="btn btn-primary" id="search">Search ID</a>
                 <button class="btn btn-danger" type="reset">Reset</button>
             </form>
