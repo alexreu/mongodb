@@ -7,7 +7,7 @@ let url = "mongodb://localhost:27017/alexandre";
 
 app.use(express.static('static'));
 
-app.get('/test', function(req, res){
+app.get('/bdd', function(req, res){
     bdd.connect(url, function (err, db) {
         assert.equal(null, err);
         console.log("connexion BDD Ok");

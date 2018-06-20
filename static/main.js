@@ -1,4 +1,4 @@
-let url = "http://localhost:3012/test";
+let url = "http://localhost:3012/bdd";
 $.ajax({
     url: url,
     success: function (data) {
