@@ -23,7 +23,7 @@ app.get('/test', function(req, res){
 
 
 app.get('/', function (req, res) {
-    res.send('Hello World')
+    res.sendFile(__dirname + "/index.html");
 });
 
 
