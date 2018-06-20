@@ -11,6 +11,7 @@ $(function(){
 
         }
     });
+
     // requete pour ajouter un client à la bdd
     $('#add').on('click', function(){
         var url = "http://localhost:3012/bddAdd";
@@ -18,15 +19,38 @@ $(function(){
         var gender = $("#gender").val();
         console.log(name);
         console.log(gender);
-        $.post(url, {
-                name : name,
-                gender: gender
-            },
-            function(result, status) {
-                if (status == 'success'){
-                    console.log("Ajout réussi");
-                }else{
-                    console.log('error');
+
+        if(name && gender !== undefined){
+            $.post(url, {
+                    name : name,
+                    gender: gender
+                },
+                function(result, status) {
+                    if (status === 'success'){
+                        console.log("Ajout réussi");
+                    }else{
+                        console.log('error');
+                    }
+                }
+            )
+        }
+    });
+
+    $('#search').on('click', function(){
+        var id;
+        var url = "http://localhost:3012/personne/";
+        id = $('#id').val();
+        console.log(id);
+        $.post(url+id,
+            {id: id},
+            function (result, status) {
+                if (status === 'success'){
+                    console.log("id trouver");
+                    console.log(result);
+                    $('#name-update').val(result.name);
+                    $('#gender-update').val(result.genre);
+                }else {
+                    console.log("id non trouver");
                 }
             }
         )

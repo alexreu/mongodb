@@ -26,11 +26,28 @@
                     <label for="gender">Entrez un Genre M , F ou Non Binaire</label>
                     <input type="text" class="form-control" name="gender" id="gender">
                 </div>
-                <a href="" class="btn btn-success" id="add">Inscrire</a>
-                <button class="btn btn-danger" type="reset">Annuler</button>
+                <button class="btn btn-success" id="add">Add</button>
+                <button class="btn btn-danger" type="reset">Reset</button>
             </form>
         </div>
-
+    </div>
+    <div class="container text-center mt-5">
+        <h1 class="text-uppercase">Mise a jour des clients</h1>
+        <div class="col-md-6 offset-md-3 mt-3">
+            <form>
+                <div class="form-group">
+                    <label for="name">id</label>
+                    <input type="number" class="form-control" name="id" id="id" value="">
+                    <label for="name">Prénom</label>
+                    <input type="text" class="form-control" name="name" id="name-update" value="">
+                    <label for="gender">Genre M , F ou Non Binaire</label>
+                    <input type="text" class="form-control" name="gender" id="gender-update" value="">
+                </div>
+                <button class="btn btn-success" id="Update">Update</button>
+                <a class="btn btn-primary" id="search">Search ID</a>
+                <button class="btn btn-danger" type="reset">Reset</button>
+            </form>
+        </div>
     </div>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
