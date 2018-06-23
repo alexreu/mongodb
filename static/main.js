@@ -1,20 +1,5 @@
 $(function(){
-    // requete ajax pour la récupération des données coté serveur
-    var url = "http://localhost:3012/bdd";
-    $.ajax({
-        url: url,
-        success: function (data) {
-            //console.log(data);
-            data.forEach(function (datas) {
-                $('#result').append('<div class="col-md-6 offset-md-3 mt-3"' +
-                    ' <input type="hidden" class="id" value="'+ datas._id +'"> <p> Nom : ' + datas.name + " <br>" +
-                    " " + ' Genre : ' + datas.genre + '</p></div>');
-            });
-
-        }
-    });
-
-    // requete pour ajouter un client à la bdd
+    // requete pour ajouter un contact à la bdd
     $('#add').on('click', function(){
         var url = "http://localhost:3012/bddAdd";
         var name = $("#name").val();
@@ -38,30 +23,8 @@ $(function(){
         }
     });
 
-    // recherche by id
-    $('#search').on('click', function(){
-        var id;
-        var url = "http://localhost:3012/personne/";
-        id = $('#id').val();
-        console.log(id);
-        $.post(url+id,
-            {id: id},
-            function (result, status) {
-                if (status === 'success'){
-                    console.log("id trouver");
-                    console.log(result._id);
-                    $('#name-update').val(result.name);
-                    $('#gender-update').val(result.genre);
-                    $('#user_id').val(result._id);
-                }else {
-                    console.log("id non trouver");
-                }
-            }
-        )
-    });
-
-    // update des client dans la bdd en fonction de leurs id
-    $('#Update').on('click', function () {
+    // update des contacts dans la bdd en fonction de leurs id
+    $('#update').on('click', function () {
         var id;
         var name;
         var gender;
@@ -69,21 +32,92 @@ $(function(){
         name = $("#name-update").val();
         gender = $("#gender-update").val();
         id = $("#user_id").val();
+        console.log(id);
         console.log(name);
         console.log(gender);
+        if(name && gender && id !== undefined){
+            $.post(url,
+                {name: name,
+                    gender: gender,
+                    id: id
+                },
+                function (result, status) {
+                    if (status === 'success'){
+                        console.log("fichier mis a jour");
+                        location.reload(true);
+                    }else {
+                        console.log('erreur lors de la mise à jour');
+                    }
+                }
+            );
+        }
+    });
+    // permet de recuperer les data dans le bouton et de les afficher dans le formulaire
+    $("#editModal").on("show.bs.modal", function (event) {
+        var button = $(event.relatedTarget);
+        console.log(button);
+        var name = button.data('name');
+        console.log(name);
+        var gender = button.data('gender');
+        console.log(gender);
+        var user_id = button.data('id');
+        console.log(user_id);
+
+        var modal = $(this);
+        modal.find('#name-update').val(name);
+        modal.find('#gender-update').val(gender);
+        modal.find('#user_id').val(user_id);
+    });
+    // requete pour la suppression d'un contact dans la bdd en fonction de son id
+    $(".del").on('click', function () {
+        var id = $(this).data(id);
+        console.log(typeof id);
         console.log(id);
-        $.post(url,
-            {name: name,
-             gender: gender,
-             id: id
-            },
+        var url = "http://localhost:3012/bddDel";
+        $.post(url, {
+            id: id.id,
+        },
             function (result, status) {
                 if (status === 'success'){
-                    console.log("fichier mis a jour");
+                    console.log("client supprimer");
+                    location.reload(true);
                 }else {
-                    console.log('erreur lors de la mise à jour');
+                    console.log('erreur lors de la suppression');
                 }
             }
-        );
+        )
+    });
+
+    // requete pour la connexion au back-office
+    $('#connection').on('click', function (e) {
+        //event.preventDefault();
+        var username = $('#username').val();
+        var passsword = $('#password').val();
+        var url = "http://localhost:3012/login";
+        console.log(username);
+        console.log(passsword);
+        if (username && passsword !== undefined){
+            $.post(url, {
+                username: username,
+                password: passsword
+            },
+                function (result, status) {
+                    //console.log(status);
+                    console.log(result);
+                    if (result === "error") {
+                        //console.log('success');
+
+                        $('#result').append('<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+                            '<p class="m-0">Mot de passe / Nom d\'utilisateur invalide</p>' +
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                            '<span aria-hidden="true">&times;</span>' +
+                            '</button>' +
+                            '</div>')
+                    }else if (result === "success") {
+                        window.location = "http://localhost:3012/admin"
+                    }
+                }
+            )
+        }
     })
 });

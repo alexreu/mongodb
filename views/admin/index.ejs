@@ -1,0 +1,102 @@
+<% include ../partials/header.ejs %>
+<body>
+<div class="row">
+    <% include ../partials/side-menu.ejs %>
+    <div class="col-md-10 offset-md-2 p-0">
+        <div class="container-fluid pt-3">
+            <div class="row justify-content-around p-3">
+                <h1 class="text-uppercase">Liste des Clients</h1>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% data.forEach(function (datas) { %>
+                <tr class="col-md-12">
+                    <td><%= datas._id %></td>
+                    <td><%= datas.name %></td>
+                    <td><%= datas.genre %></td>
+                    <td>
+                        <button class="btn btn-primary btn-block" data-id="<%= datas._id %>" data-name="<%= datas.name %>" data-gender="<%= datas.genre %>" data-toggle="modal" data-target="#editModal">Edit</button>
+                        <button type="submit" class="btn btn-danger btn-block del" data-id="<%= datas._id %>">Supprimer</button>
+                    </td>
+                </tr>
+                <%  }) %>
+                </tbody>
+            </table>
+        </div>
+        <div class="container">
+            <div class="col-md-4 offset-md-4">
+                <button class="btn btn-success btn-block" data-target="#addModal" data-toggle="modal">Ajouter Client</button>
+            </div>
+        </div>
+
+        <!--modal add client-->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Nom & Prénom</label>
+                                <input type="text" class="form-control" id="name" name="name" value="" required>
+                                <label for="gender">Genre M / F / Non Binaire</label>
+                                <input type="text" class="form-control" id="gender" name="gender" value="" required>
+                            </div>
+                            <button type="button" id="add" class="btn btn-primary">Ajouter</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal update -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Nom & Prénom</label>
+                                <input type="text" class="form-control" id="name-update" name="name" value="" required>
+                                <label for="gender">Genre M / F / Non Binaire</label>
+                                <input type="text" class="form-control" id="gender-update" name="gender" value="" required>
+                                <input type="hidden" id="user_id" value="">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" id="update" class="btn btn-primary">Editer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer.ejs %>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body{
+    width: 100%;
+    font-family: 'Oswald', sans-serif;
+}
+.left-container {
+    position: fixed;
+    height: 100vh !important;
+    background: #131313;
+
+}
+.my-active{
+    background: #2f2f2f;
+}
+.my-nav-item{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: 0.3s linear;
+}
+.my-nav-item:hover{
+    background: #2f2f2f;
+}
